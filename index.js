@@ -26,6 +26,9 @@ class Server {
         console.log(`${client.id} ${messageObj.header} ${JSON.stringify(messageObj.data)}`);
 
         switch(messageObj.header) {
+            case 'echo':
+                this.broadcast(messageStr);
+                break;
             case 'position':
                 this.onPositionMessage(messageStr, client);
                 break;
