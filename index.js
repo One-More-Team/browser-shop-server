@@ -94,10 +94,12 @@ class Server {
         const clientData = {
             [ID]: client.id,
             [NAME]: data.name,
+            color: data.color,
             [POSITION]: {
                 x: Math.round(Math.random() * 10) + 30,
                 y: 0.5,
                 z: Math.round(Math.random() * 10) + 0,
+                rotation: 0,
             },
         };
 
@@ -126,6 +128,7 @@ class Server {
                 x: data.x,
                 y: data.y,
                 z: data.z,
+                rotation: data.rotation,
             },
         };
 
