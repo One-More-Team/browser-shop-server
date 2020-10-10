@@ -5,7 +5,7 @@ Browser Show Server
 * Test server: **ws://192.168.2.112:8081** (local network)
 * Production server: **wss://browser-shop.herokuapp.com**
 
-## Received and sent messages (from client -->, <-- to client)
+## Received and sent messages ([-->] from client, [<--] to client)
 
 #### (some data structures)
 
