@@ -1,5 +1,4 @@
-# browser-shop-server
-Browser Show Server
+# Browser Shop Server
 
 ## Servers
 * Test server: **ws://192.168.2.112:8081** (local network)
