@@ -1,6 +1,14 @@
 # browser-shop-server
 Browser Show Server
 
+## Servers
+Test server: ws://192.168.2.112:8081 (local network)
+Production server: wss://browser-shop.herokuapp.com
+
+## Communication
+
+#### (some data structures)
+
 * CLIENT: {id, name, position: POSITION}
 * PRODUCT_DATEBASE: "struct of database"
 * POSITION: {x, y, z}
