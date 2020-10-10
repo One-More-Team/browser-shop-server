@@ -38,7 +38,7 @@ Browser Show Server
 ## Collecting products data from Amazon by Rainforest (https://rainforestapi.com)
 ### Minified
 ```javascript
-async function searchOnAmazonDe(a,e,n=100,t=3,r=10){const o=`https://api.rainforestapi.com/request?api_key=${e}&type=search&amazon_domain=amazon.de&search_term=${a.split(" ").join("+")}&language=en_US`,c=await fetch(o);return(await c.json()).search_results.map(e=>({category:a,id:e.asin,type:e.title,stock:Math.round(7*Math.random())+3,price:e.prices.raw,preview:e.image,link:e.link}))}async function searchMoreOnAmazonDe(a,e){const n=a.map(a=>"string"==typeof a?searchOnAmazonDe(a,e):searchOnAmazonDe(a.category,e,a.maxResult,a.minStock,a.maxStock)),t=await Promise.all(n);return[].concat.apply([],t)}
+async function searchOnAmazonDe(a,e,n=100,t=3,r=10){const c=`https://api.rainforestapi.com/request?api_key=${e}&type=search&amazon_domain=amazon.de&search_term=${a.split(" ").join("+")}&language=en_US`,o=await fetch(c);return(await o.json()).search_results.map(e=>{try{return{category:a,id:e.asin,type:e.title,stock:Math.round(7*Math.random())+3,price:e.prices[0].raw,preview:e.image,link:e.link}}catch(a){return null}}).filter(a=>null!==a)}async function searchMoreOnAmazonDe(a,e){const n=a.map(a=>"string"==typeof a?searchOnAmazonDe(a,e):searchOnAmazonDe(a.category,e,a.maxResult,a.minStock,a.maxStock)),t=await Promise.all(n);return[].concat.apply([],t)}
 ```
 ### Original source
 ```javascript
@@ -49,16 +49,20 @@ async function searchOnAmazonDe(category, apiKey, maxResult = 100, minStock = 3,
     const data = await response.json();
 
     return data.search_results.map(entry => {
-        return {
-            category: category,
-            id: entry.asin,
-            type: entry.title,
-            stock: Math.round(Math.random() * 7) + 3,
-            price: entry.prices.raw,
-            preview: entry.image,
-            link: entry.link
-        };
-    });
+		try {
+			return {
+				category: category,
+				id: entry.asin,
+				type: entry.title,
+				stock: Math.round(Math.random() * 7) + 3,
+				price: entry.prices[0].raw,
+				preview: entry.image,
+				link: entry.link
+			};
+		} catch(e) {
+			return null;
+		}
+    }).filter(o => o !== null);
 }
 ```
 ```javascript
