@@ -10,7 +10,8 @@ const DATABASE = 'database.json';
 const HEADER = 'header';
 const DATA = 'data';
 const ID = 'id';
-const POSITION = 'id';
+const NAME = 'name';
+const POSITION = 'position';
 
 class Server {
     start(port, databasePath) {
@@ -33,14 +34,43 @@ class Server {
     onConnection(client) {
         client.id = uuid.v4();
         console.log(`...connected... (${client.id})`);
-        client.on('message', this.onMessage.bind(this, client));
-
-        this.handleNewClient(client);
+        client.on('message', this.onClientMessage.bind(this, client));
     }
 
-    handleNewClient(client) {
+    onClientMessage(client, messageStr) {
+        const messageObj = JSON.parse(messageStr);
+        const header = messageObj[HEADER];
+        const data = messageObj[DATA];
+
+        console.log(`--> ${client.id} ${messageStr}`);
+
+        switch (header) {
+            case 'echo':
+                this.broadcastMessage(messageStr);
+                break;
+            case 'init':
+                this.onInitMessage(data, client);
+                break;
+            case 'updatePosition':
+                this.onUpdatePositionMessage(data, client);
+                break;
+            case 'sendChatMessage':
+                this.onSendChatMessage(data, client);
+                break;
+            case 'buyProduct':
+                this.onBuyProductMessage(data, client);
+                break;
+        }
+    }
+
+    onInitMessage(data, client) {
+        if (!data) {
+            return;
+        }
+
         const clientData = {
             [ID]: client.id,
+            [NAME]: data.name,
             [POSITION]: {
                 x: Math.random() * 100 + 0,
                 y: Math.random() * 100 + 0,
@@ -60,41 +90,45 @@ class Server {
         this.broadcastData('initClient', clientData, client);
     }
 
-    onMessage(client, messageStr) {
-        const messageObj = JSON.parse(messageStr);
-        const header = messageObj[HEADER];
-        const data = messageObj[DATA];
-
-        console.log(`${client.id} ${header} ${JSON.stringify(data)}`);
-
-        switch (header) {
-            case 'echo':
-                this.broadcastMessage(messageStr);
-                break;
-            case 'initPosition':
-                this.onInitPositionMessage(client);
-                break;
-            case 'updatePosition':
-                this.onUpdatePositionMessage(data, client);
-                break;
-        }
-    }
-
-    onUpdatePositionMessage(data, senderClient) {
-        if (!data || !data.position) {
+    onUpdatePositionMessage(data, client) {
+        if (!data) {
             return;
         }
 
         const dataObj = {
+            [ID]: client.id,
             [POSITION]: {
-                x: data.position.x,
-                y: data.position.y,
-                z: data.position.z,
+                x: data.x,
+                y: data.y,
+                z: data.z,
             },
-            [ID]: senderClient.id,
         };
 
-        this.broadcastData('updatePosition', dataObj, senderClient);
+        this.broadcastData('updatePosition', dataObj, client);
+    }
+
+    onSendChatMessage(message, client) {
+        const dataObj = {
+            [ID]: client.id,
+            message,
+        };
+
+        this.broadcastData('sendChatMessage', dataObj);
+    }
+
+    onBuyProductMessage(productId, client) {
+        const product = [].concat.apply([], Object.values(this._products)).find(product => product.id === productId);
+
+        if (product && product.stock > 0) {
+            --product.stock;
+
+            const productData = {
+                [ID]: product.id,
+                stock: product.stock,
+            };
+
+            this.broadcastData('productUpdate', productData);
+        }
     }
 
     sendData(header, data, client) {
@@ -102,6 +136,11 @@ class Server {
             [HEADER]: header,
             [DATA]: data,
         });
+        this.sendMessage(message, client);
+    }
+
+    sendMessage(message, client) {
+        console.log(`<-- ${client.id} ${message}`);
         client.send(message);
     }
 
@@ -118,7 +157,7 @@ class Server {
             const isSender = senderClient && senderClient === client;
 
             if (!isSender && client.readyState === WebSocket.OPEN) {
-                client.send(message);
+                this.sendMessage(message, client);
             }
         });
     }
