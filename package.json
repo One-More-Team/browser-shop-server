@@ -6,7 +6,8 @@
     "license": "MIT",
     "repository": "github:One-More-Team/browser-shop-server",
     "scripts": {
-        "start": "node ./index.js"
+        "start": "node ./index.js",
+        "lint": "eslint ./index.js"
     },
     "dependencies": {
         "uuid": "^8.3.0",

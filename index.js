@@ -15,12 +15,12 @@ const POSITION = 'position';
 
 class Server {
     start(port, databasePath) {
-        console.log('...loading database...');
+        this.log('...loading database...');
 
         const productDatabase = fs.readFileSync(databasePath);
         this._products = JSON.parse(productDatabase);
 
-        console.log('...started...');
+        this.log('...started...');
 
         this.onConnection = this.onConnection.bind(this);
         this.onClose = this.onClose.bind(this);
@@ -35,7 +35,7 @@ class Server {
 
     onConnection(client) {
         client.id = uuid.v4();
-        console.log(`...connected... (${client.id})`);
+        this.log(`...connected... (${client.id})`);
         client.on('message', this.onClientMessage.bind(this, client));
     }
 
@@ -52,12 +52,12 @@ class Server {
     onClientMessage(client, messageStr) {
         let messageObj;
 
-        console.log(`--> ${client.id} ${messageStr}`);
+        this.log(`--> ${client.id} ${messageStr}`);
 
         try {
             messageObj = JSON.parse(messageStr);
         } catch (e) {
-            console.log(e);
+            this.log(e);
 
             return;
         }
@@ -161,7 +161,7 @@ class Server {
     }
 
     sendMessage(message, client) {
-        // console.log(`<-- ${client.id} ${message}`);
+        // this.log(`<-- ${client.id} ${message}`);
         client.send(message);
     }
 
@@ -181,6 +181,10 @@ class Server {
                 this.sendMessage(message, client);
             }
         });
+    }
+
+    log(message) {
+        console.log(`${new Date().toLocaleString()}: ${message}`);
     }
 }
 
