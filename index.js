@@ -95,9 +95,9 @@ class Server {
             [ID]: client.id,
             [NAME]: data.name,
             [POSITION]: {
-                x: Math.random() * 100 + 0,
-                y: Math.random() * 100 + 0,
-                z: Math.random() * 0 + 0,
+                x: Math.round(Math.random() * 10) + 30,
+                y: 0.5,
+                z: Math.round(Math.random() * 10) + 0,
             },
         };
 
