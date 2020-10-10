@@ -8,7 +8,8 @@ Browser Show Server
 ### INIT
 * --> {header: "init", data: {name}}
 * <-- (to sender) {header: "init", data: {id, clientList: [...CLIENT], products: PRODUCT_DATEBASE}}
-* <-- (to others) {header: "initClient", data: CLIENT}
+* <-- (to others) {header: "join", data: CLIENT}
+* <-- (to others) {header: "leave", data: "client id"} //coming after connection close if "init" was called earlier
 
 ### POSITION
 * --> {header: "updatePosition", data: POSITION}

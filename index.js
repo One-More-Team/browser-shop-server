@@ -23,12 +23,14 @@ class Server {
         console.log('...started...');
 
         this.onConnection = this.onConnection.bind(this);
+        this.onClose = this.onClose.bind(this);
 
         this._clientData = {};
 
         this._server = new WebSocket.Server({port});
 
         this._server.on('connection', this.onConnection);
+        this._server.on('close', this.onClose);
     }
 
     onConnection(client) {
@@ -37,12 +39,31 @@ class Server {
         client.on('message', this.onClientMessage.bind(this, client));
     }
 
+    onClose(client) {
+        if (!this._clientData[client.id]) {
+            return;
+        }
+
+        delete this._clientData[client.id];
+
+        this.broadcastData('leave', client.id, client);
+    }
+
     onClientMessage(client, messageStr) {
-        const messageObj = JSON.parse(messageStr);
-        const header = messageObj[HEADER];
-        const data = messageObj[DATA];
+        let messageObj;
 
         console.log(`--> ${client.id} ${messageStr}`);
+
+        try {
+            messageObj = JSON.parse(messageStr);
+        } catch (e) {
+            console.log(e);
+
+            return;
+        }
+
+        const header = messageObj[HEADER];
+        const data = messageObj[DATA];
 
         switch (header) {
             case 'echo':
@@ -64,7 +85,7 @@ class Server {
     }
 
     onInitMessage(data, client) {
-        if (!data) {
+        if (!data && this._clientData[client.id]) {
             return;
         }
 
@@ -87,7 +108,7 @@ class Server {
         };
 
         this.sendData('init', initData, client);
-        this.broadcastData('initClient', clientData, client);
+        this.broadcastData('join', clientData, client);
     }
 
     onUpdatePositionMessage(data, client) {
@@ -140,7 +161,7 @@ class Server {
     }
 
     sendMessage(message, client) {
-        console.log(`<-- ${client.id} ${message}`);
+        // console.log(`<-- ${client.id} ${message}`);
         client.send(message);
     }
 
