@@ -13,12 +13,12 @@ const ID = 'id';
 const POSITION = 'id';
 
 class Server {
-    constructor(port) {
+    start(port, databasePath) {
         console.log('...loading database...');
 
-        const productDatabase = fs.readFileSync(DATABASE);
+        const productDatabase = fs.readFileSync(databasePath);
         this._products = JSON.parse(productDatabase);
-        
+
         console.log('...started...');
 
         this.onConnection = this.onConnection.bind(this);
@@ -67,7 +67,7 @@ class Server {
 
         console.log(`${client.id} ${header} ${JSON.stringify(data)}`);
 
-        switch(header) {
+        switch (header) {
             case 'echo':
                 this.broadcastMessage(messageStr);
                 break;
@@ -91,7 +91,7 @@ class Server {
                 y: data.position.y,
                 z: data.position.z,
             },
-            [ID]: senderClient.id
+            [ID]: senderClient.id,
         };
 
         this.broadcastData('updatePosition', dataObj, senderClient);
@@ -116,7 +116,7 @@ class Server {
     broadcastMessage(message, senderClient) {
         this._server.clients.forEach(client => {
             const isSender = senderClient && senderClient === client;
-            
+
             if (!isSender && client.readyState === WebSocket.OPEN) {
                 client.send(message);
             }
@@ -124,4 +124,5 @@ class Server {
     }
 }
 
-new Server(PORT);
+const server = new Server();
+server.start(PORT, DATABASE);
