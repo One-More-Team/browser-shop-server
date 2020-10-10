@@ -35,7 +35,7 @@ Browser Show Server
 * --> {header: "echo", data}
 * <-- (to all) {header: "echo", data}
 
-## Collecting products data from Amazon by Rainforest (https://rainforestapi.com)
+## Collecting products data from Amazon.de by Rainforest API (https://rainforestapi.com)
 ### Minified
 ```javascript
 async function searchOnAmazonDe(a,e,n=100,t=3,r=10){const c=`https://api.rainforestapi.com/request?api_key=${e}&type=search&amazon_domain=amazon.de&search_term=${a.split(" ").join("+")}&language=en_US`,o=await fetch(c);return(await o.json()).search_results.map(e=>{try{return{category:a,id:e.asin,type:e.title,stock:Math.round(7*Math.random())+3,price:e.prices[0].raw,preview:e.image,link:e.link}}catch(a){return null}}).filter(a=>null!==a)}async function searchMoreOnAmazonDe(a,e){const n=a.map(a=>"string"==typeof a?searchOnAmazonDe(a,e):searchOnAmazonDe(a.category,e,a.maxResult,a.minStock,a.maxStock)),t=await Promise.all(n);return[].concat.apply([],t)}
