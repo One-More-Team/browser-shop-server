@@ -30,23 +30,25 @@ class Server {
         this._server = new WebSocket.Server({port});
 
         this._server.on('connection', this.onConnection);
-        this._server.on('close', this.onClose);
     }
 
     onConnection(client) {
         client.id = uuid.v4();
-        this.log(`...connected... (${client.id})`);
+
+        this.log(`CONNECTED: ${client.id}`);
+
         client.on('message', this.onClientMessage.bind(this, client));
+        client.on('close', this.onClose.bind(this, client));
     }
 
     onClose(client) {
-        if (!this._clientData[client.id]) {
-            return;
+        if (this._clientData[client.id]) {
+            delete this._clientData[client.id];
+            this.broadcastData('leave', client.id, client);
+            this.log(`LEFT: ${client.id} [clients: ${this.getClientNum()}]`);
         }
 
-        delete this._clientData[client.id];
-
-        this.broadcastData('leave', client.id, client);
+        this.log(`DISCONNECTED: ${client.id}`);
     }
 
     onClientMessage(client, messageStr) {
@@ -85,7 +87,7 @@ class Server {
     }
 
     onInitMessage(data, client) {
-        if (!data && this._clientData[client.id]) {
+        if (!data || this._clientData[client.id]) {
             return;
         }
 
@@ -100,6 +102,8 @@ class Server {
         };
 
         this._clientData[client.id] = clientData;
+
+        this.log(`JOINED: ${client.id} [clients: ${this.getClientNum()}]`);
 
         const initData = {
             products: this._products,
@@ -150,6 +154,10 @@ class Server {
 
             this.broadcastData('productUpdate', productData);
         }
+    }
+
+    getClientNum() {
+        return Object.keys(this._clientData).length;
     }
 
     sendData(header, data, client) {
