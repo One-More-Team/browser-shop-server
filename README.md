@@ -11,10 +11,10 @@ Browser Show Server
 
 * CLIENT: {id, name, position: POSITION}
 * PRODUCT_DATEBASE: "struct of database"
-* POSITION: {x, y, z}
+* POSITION: {x, y, z, rotation}
 
 ### INIT
-* --> {header: "init", data: {name}}
+* --> {header: "init", data: {name, color}}
 * <-- (to sender) {header: "init", data: {id, clientList: [...CLIENT], products: PRODUCT_DATEBASE}}
 * <-- (to others) {header: "join", data: CLIENT}
 * <-- (to others) {header: "leave", data: "client id"} //coming after connection close if "init" was called earlier
