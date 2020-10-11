@@ -7,7 +7,7 @@
     "repository": "github:One-More-Team/browser-shop-server",
     "scripts": {
         "start": "node ./index.js",
-        "lint": "eslint ./index.js"
+        "lint": "eslint ./index.js \"./lib/**/*.js\""
     },
     "dependencies": {
         "uuid": "^8.3.0",
@@ -27,6 +27,9 @@
     "files": [
         "LICENSE",
         "Readme.md",
-        "index.js"
+        "index.js",
+        "lib/",
+        "conf/",
+        "db/"
     ]
 }
