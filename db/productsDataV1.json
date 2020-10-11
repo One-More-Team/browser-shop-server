@@ -56,5 +56,69 @@
       "preview": "https://browser-shop.com/static/products/monitors/lg/lg_22inch_IPS.jpg",
       "link": "https://www.idealo.de/preisvergleich/OffersOfProduct/5622562_-22bk55wy-b-lg-electronics.html"
     }
+  ],
+  "microwave": [
+    {
+      "category": "microwave",
+      "id": 5,
+      "type": "Bosch 800",
+      "stock": 10,
+      "price": "59€",
+      "preview": "http://browser-shop.com/static/products/microwave/bosch/bosch_800.jpg",
+      "link": "https: //www.idealo.de/preisvergleich/OffersOfProduct/4992597_-c27f390fhu-samsung.html"
+    },
+    {
+      "category": "microwave",
+      "id": 5,
+      "type": "Sharp Ultra Cooker",
+      "stock": 10,
+      "price": "59€",
+      "preview": "http://browser-shop.com/static/products/microwave/sharp/sharp_ultra_cooker.jpg",
+      "link": "https: //www.idealo.de/preisvergleich/OffersOfProduct/4992597_-c27f390fhu-samsung.html"
+    }
+  ],
+  "coffemachine": [
+    {
+      "category": "coffemachine",
+      "id": 5,
+      "type": "Bosch CoffeBreak 300",
+      "stock": 1,
+      "price": "100€",
+      "preview": "http://browser-shop.com/static/products/coffee/bosch/bosch_coffee_4000.jpg",
+      "link": "https: //www.idealo.de/preisvergleich/OffersOfProduct/4992597_-c27f390fhu-samsung.html"
+    }
+  ],
+  "waterbooster": [
+    {
+      "category": "waterbooster",
+      "id": 5,
+      "type": "Tefal waterbooster 4000",
+      "stock": 1,
+      "price": "100€",
+      "preview": "http://browser-shop.com/static/products/water/tefal/tefal_water_booster_5000.jpg",
+      "link": "https: //www.idealo.de/preisvergleich/OffersOfProduct/4992597_-c27f390fhu-samsung.html"
+    }
+  ],
+  "hairdresser": [
+    {
+      "category": "hairdresser",
+      "id": 5,
+      "type": "Ikonic tornado",
+      "stock": 1,
+      "price": "100€",
+      "preview": "http://browser-shop.com/static/products/hairdresser/ikonic/ikonic_tornado.jpg",
+      "link": "https: //www.idealo.de/preisvergleich/OffersOfProduct/4992597_-c27f390fhu-samsung.html"
+    }
+  ],
+  "toaster": [
+    {
+      "category": "toaster",
+      "id": 1,
+      "type": "Trost Hell Toaster",
+      "stock": 1,
+      "price": "190€",
+      "preview": "http://browser-shop.com/static/products/toaster/trost/sandwich-hell-toaster.jpg",
+      "link": "https: //www.idealo.de/preisvergleich/OffersOfProduct/4992597_-c27f390fhu-samsung.html"
+    }
   ]
 }

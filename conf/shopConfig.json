@@ -147,8 +147,8 @@
 		},
 		"walls": {
 			"front": true,
-			"right": false,
-			"back": true,
+			"right": true,
+			"back": false,
 			"left": false
 		}
 	},{
