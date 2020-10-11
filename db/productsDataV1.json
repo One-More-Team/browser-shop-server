@@ -6,7 +6,7 @@
       "type": "Levono Idea Pad 5",
       "stock": 10,
       "price": "599€",
-      "preview": "http://browser-shop.com/static/products/laptops/lenovo/lenovo_ideapad_5.jpg",
+      "preview": "https://browser-shop.com/static/products/laptops/lenovo/lenovo_ideapad_5.jpg",
       "link": "https: //www.idealo.de/preisvergleich/OffersOfProduct/200162735_-ideapad-5-15-lenovo.html"
     },
     {
@@ -15,7 +15,7 @@
       "type": "Levono Idea Pad 3",
       "stock": 5,
       "price": "399€",
-      "preview": "http://browser-shop.com/static/products/laptops/lenovo/lenovo_ideapad_3.jpg",
+      "preview": "https://browser-shop.com/static/products/laptops/lenovo/lenovo_ideapad_3.jpg",
       "link": "https://www.idealo.de/preisvergleich/OffersOfProduct/200119051_-ideapad-3-15-lenovo.html"
     },
     {
@@ -24,7 +24,7 @@
       "type": "Dell Inspiron 15",
       "stock": 1,
       "price": "388€",
-      "preview": "http://browser-shop.com/static/products/laptops/dell/dell_inspiron_15.jpg",
+      "preview": "https://browser-shop.com/static/products/laptops/dell/dell_inspiron_15.jpg",
       "link": "https://www.idealo.de/preisvergleich/OffersOfProduct/6850444_-inspiron-15-3593-dell.html"
     },
     {
@@ -33,7 +33,7 @@
       "type": "MSI GF65",
       "stock": 3,
       "price": "433€",
-      "preview": "http://browser-shop.com/static/products/laptops/msi/msi_gf_65.jpg",
+      "preview": "https://browser-shop.com/static/products/laptops/msi/msi_gf_65.jpg",
       "link": "https://www.idealo.de/preisvergleich/OffersOfProduct/200131716_-gf65-9sexr-481-msi.html"
     }
   ],
@@ -44,7 +44,7 @@
       "type": "Samsung 27C FHD",
       "stock": 10,
       "price": "148€",
-      "preview": "http://browser-shop.com/static/products/monitors/samsung/samsung-27inch_fhd.jpg",
+      "preview": "https://browser-shop.com/static/products/monitors/samsung/samsung-27inch_fhd.jpg",
       "link": "https: //www.idealo.de/preisvergleich/OffersOfProduct/4992597_-c27f390fhu-samsung.html"
     },
     {
@@ -53,7 +53,7 @@
       "type": "Lg 22C IPS",
       "stock": 5,
       "price": "133€",
-      "preview": "http://browser-shop.com/static/products/monitors/lg/lg_22inch_IPS.jpg",
+      "preview": "https://browser-shop.com/static/products/monitors/lg/lg_22inch_IPS.jpg",
       "link": "https://www.idealo.de/preisvergleich/OffersOfProduct/5622562_-22bk55wy-b-lg-electronics.html"
     }
   ]
